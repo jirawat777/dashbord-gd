@@ -1,11 +1,12 @@
 import './App.css';
+import React, { useEffect } from 'react';
 import LoginPage from './pages/LoginPage';
 import { Route, Routes } from 'react-router-dom'
 import GuardedRoute from './utils/GuardedRoute'
 import DashbordPage from './pages/DashbordPage';
 import ReminderPage from './pages/ReminderPage';
 import ManagePage from './pages/ManagePage';
-import { useSelector } from 'react-redux';
+import { useSelector, dispatch, useDispatch } from 'react-redux';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -23,7 +24,8 @@ const theme = createTheme({
 });
 
 function App() {
-  const isAuthorized = useSelector((state) => state.authentication.profile.is_authentication)
+  const isAuthorized = useSelector((state) => state.authentication.auth.is_authentication)
+
   return (
     <ThemeProvider theme={theme}>
       <div className="App block sm:flex">

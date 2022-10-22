@@ -15,7 +15,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useDispatch } from 'react-redux';
 import { Typography } from '@mui/material'
 import { useNavigate } from "react-router-dom";
-
+import UserAvatar from '../components/bases/useravatar';
 const route = [
   { title: 'Dashbord', icon: 'fas fa-chart-pie', path: '/app/dashbord' },
   { title: 'Reminder', icon: 'fas fa-sticky-note', path: '/app/reminder' },
@@ -55,34 +55,39 @@ export default function Layout() {
   }
   const handleClick = () => {
     dispatch.authentication.logout()
+    window.location = '/'
   }
   return (
     <>
       <Paper elevation={3} >
-        <MenuList className={`h-full hidden sm:w-48 sm:block ${classes.root}`}>
-          {route.map((r, i) => {
-            if (r.title === Page) {
-              return (
-                <MenuItem key={`menu-web-${i}`} onClick={() => handleClickPath(r)}>
-                  <ListItemIcon>
-                    <i className={`${r.icon} text-[#ffa2a2]`}></i>
-                  </ListItemIcon>
-                  <ListItemText>{r.title}</ListItemText>
-                </MenuItem>)
-            } else {
-              return (
-                <MenuItem key={`menu-web-${i}`} onClick={() => handleClickPath(r)}>
-                  <ListItemIcon>
-                    <i className={`${r.icon}`}></i>
-                  </ListItemIcon>
-                  <ListItemText>{r.title}</ListItemText>
-                </MenuItem>)
+        <div className='h-full hidden sm:w-48 sm:block'>
+          <UserAvatar width={100} height={100} />
+          <MenuList className={classes.root}>
+            {route.map((r, i) => {
+              if (r.title === Page) {
+                return (
+                  <MenuItem key={`menu-web-${i}`} onClick={() => handleClickPath(r)}>
+                    <ListItemIcon>
+                      <i className={`${r.icon} text-[#ffa2a2]`}></i>
+                    </ListItemIcon>
+                    <ListItemText>{r.title}</ListItemText>
+                  </MenuItem>)
+              } else {
+                return (
+                  <MenuItem key={`menu-web-${i}`} onClick={() => handleClickPath(r)}>
+                    <ListItemIcon>
+                      <i className={`${r.icon}`}></i>
+                    </ListItemIcon>
+                    <ListItemText>{r.title}</ListItemText>
+                  </MenuItem>)
+              }
             }
-          }
-          )}
-          <Divider />
-          <Button color='primary' variant='contained' fullWidth startIcon={<LogoutIcon />}> Logout</Button>
-        </MenuList>
+            )}
+            <Divider />
+            <Button color='primary' variant='contained' onClick={() => handleClick()} fullWidth startIcon={<LogoutIcon />}> Logout</Button>
+          </MenuList>
+        </div>
+
       </Paper>
       <Box className={`${classes.color_header} flex justify-between items-center sm:hidden `}>
         <IconButton onClick={() => showMenuMobile()}>
